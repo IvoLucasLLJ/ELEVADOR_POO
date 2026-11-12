@@ -1,6 +1,190 @@
-# ELEVADOR_POO — Algoritmo do Elevador
+# ELEVADOR_POO — UniSenac
 
-**Instituição:** Senac  
+Projeto acadêmico de Programação Orientada a Objetos em Python, desenvolvido no Termux/Android.
+
+O repositório preserva **duas implementações independentes**:
+
+- **Aula 12:** algoritmo por proximidade/direção e simulador textual originais, na raiz. Seus dois fontes e dez testes foram preservados.
+- **Aula 13:** evolução em `Aula_13_Predio`, com exatamente um elevador, onze pavimentos (`0` a `10`), chamadas externas e destinos internos, pessoas, portas e atendimento FIFO.
+
+## Instalação e execução no Termux
+
+Requer Python **3.10 ou superior**. Desenvolvimento e testes realizados com Python **3.13.13** no Termux Android/aarch64. A interface visual utiliza **Textual 8.2.8**, fixado em `requirements.txt`.
+
+Se o Python ainda não estiver instalado no Termux:
+
+```sh
+pkg install python
+```
+
+Na pasta do projeto:
+
+```sh
+cd /storage/emulated/0/Documents/POO/Aula_12_Elevador
+python -m pip install --user -r requirements.txt
+python -m Aula_13_Predio.main
+```
+
+O caminho equivalente `~/storage/shared/Documents/POO/Aula_12_Elevador` pode ser usado se o acesso ao armazenamento compartilhado já estiver configurado no Termux. Não execute `main.py` como arquivo avulso: os imports relativos pertencem ao pacote da Aula 13.
+
+Textual já estava instalado no ambiente usado na implementação; não foi necessário instalar ou atualizar pacotes. O comando de instalação acima é a orientação para ambientes novos, não uma afirmação de instalação limpa verificada.
+
+### Uso da interface visual
+
+1. No **painel externo**, selecione um andar e pressione **SUBIR** ou **DESCER**. A quantidade padrão é uma pessoa; para embarcar um grupo na mesma parada, escolha a quantidade antes de chamar. Os identificadores são automáticos.
+2. Registre outras chamadas se desejar e pressione **Iniciar** (`i`). O atendimento avança automaticamente, um andar por segundo.
+3. O painel externo continua disponível durante o movimento. Novas chamadas entram no fim da fila.
+4. Ao atender uma externa, o elevador abre as portas e embarca automaticamente as pessoas correspondentes. O **painel interno** fica disponível.
+5. Selecione um ou vários destinos antes de pressionar **Fechar portas** (`f`). Cada novo embarque seleciona automaticamente a última pessoa que entrou e exibe **SELECIONANDO DESTINOS PARA: Pessoa X**. O seletor permite alternar entre pessoas da cabine sem perder os destinos já registrados. Todos os botões internos atribuem destinos exclusivamente à pessoa selecionada; `*` marca somente os destinos dela. As portas permanecem abertas enquanto alguém estiver sem destino válido, com indicação dos nomes pendentes.
+6. No embarque, escolha um ou vários destinos e use **Fechar portas**. Nas paradas internas intermediárias, as portas fecham automaticamente após **1,5 segundo**, mantendo a pessoa dentro enquanto houver destinos pendentes. O botão manual continua disponível.
+7. Quando a cabine estiver vazia, as portas fecham automaticamente na atualização seguinte. Fila vazia deixa o sistema ocioso e disponível para novas chamadas.
+8. **Pausar/Retomar** (barra de espaço) suspende o movimento e o fechamento automático, preservando a fila e o tempo restante das portas. O painel externo permanece disponível durante a pausa.
+9. **Sair** (`q`) encerra a sessão e exibe no terminal o relatório de solicitações concluídas, destinos atendidos e pendências. Os dados são mantidos somente em memória e não são persistidos.
+
+O painel mostra **POSIÇÃO ATUAL: ANDAR N**. Nos botões, `>N` marca a cabine, `S` indica a seleção externa e `*` indica solicitações pendentes no painel externo; os sinais podem coexistir. A seleção externa não acompanha a cabine. Também mostra direção, portas, situação operacional, fila FIFO e histórico de eventos, que aproveita o espaço livre. A fila inclui a solicitação em atendimento até concluir o serviço e fechar as portas.
+
+Use Tab/Shift+Tab para navegar e Enter para acionar botões; os controles também aceitam eventos de mouse quando oferecidos pelo terminal. O suporte a toque como mouse depende da configuração do Termux/Android e não foi validado fisicamente nesta implementação. A disposição muda para uma coluna em terminais estreitos, com rolagem. Os painéis ficam lado a lado a partir de 85 colunas e empilhados em larguras menores; a partir de 110 colunas, as grades usam seis colunas e duas linhas para reduzir a altura dos painéis; abaixo de 40 colunas, usam três colunas. Os controles inferiores ficam em duas linhas nas telas estreitas. A rolagem permite consultar painéis, fila e histórico em terminais baixos.
+
+### Alternativa funcional sem Textual
+
+```sh
+python -m Aula_13_Predio.main --texto
+```
+
+Essa alternativa usa apenas a biblioteca padrão e entrada POSIX, disponível no Termux. Confirme cada comando com Enter; o movimento continua enquanto se aguarda uma linha completa. Exemplos:
+
+```text
+externa 5 descer
+iniciar
+```
+
+Aguarde os eventos de chegada ao andar 5 e embarque; então digite:
+
+```text
+interna 0
+fechar
+```
+
+Comandos disponíveis:
+
+| Comando | Operação |
+| --- | --- |
+| `externa ANDAR subir\|descer [QUANTIDADE]` | Acionar o painel externo, inclusive durante movimento; quantidade opcional, padrão 1. |
+| `interna DESTINO` | Destino para a pessoa ativa; novos embarques selecionam a última pessoa que entrou. |
+| `pessoa ID` | Alternar a pessoa ativa sem alterar os destinos. |
+| `interna DESTINO ID` | Selecionar uma pessoa específica e registrar seu destino, pelo ID automático exibido. |
+| `iniciar` | Iniciar o atendimento automático. |
+| `fechar` | Concluir a parada e fechar as portas, quando permitido. |
+| `pausar` | Alternar pausa/retomada. |
+| `status` | Mostrar estado, fila e pessoas na cabine. |
+| `ajuda` | Mostrar os comandos. |
+| `sair` | Encerrar voluntariamente. |
+
+EOF (Ctrl+D) e Ctrl+C encerram essa alternativa sem traceback. `select` aguarda entrada ou o próximo intervalo; não há laço de espera ocupada. Essa interface alternativa é voltada a Termux/POSIX, não ao console nativo do Windows.
+
+## Regras da Aula 13
+
+- São exatamente onze pavimentos, com índices `0..10`; `Predio` rejeita configurações diferentes.
+- Há uma única instância de elevador criada pelo prédio.
+- Externa: andar e sentido. Interna: destino, associado às pessoas interessadas. Não existe `quantidade_pessoas` nos registros.
+- Cada externa distinta cria automaticamente um ou mais objetos `Pessoa`, conforme a quantidade informada (padrão 1), como solicitantes didáticos. Isso não representa cadastro ou cálculo de lotação.
+- Cada solicitação nova recebe ordem crescente e estado `pendente`, `em_atendimento` ou `concluida`. O histórico conserva as concluídas.
+- FIFO é global: a solicitação ativa não pode ser ultrapassada. Passar por um andar solicitado posteriormente não o atende antecipadamente.
+- Repetir uma externa pendente/ativa do mesmo andar e sentido não cria parada ou pessoa. Sentidos opostos são distintos. Após concluir a solicitação, sua chave pode ser registrada novamente.
+- Repetir um destino já pendente para a mesma pessoa é rejeitado como duplicata. Se outra pessoa selecionar um destino já na fila, ela é vinculada à mesma parada, sem reordená-la.
+- Solicitação no andar atual abre atendimento sem movimento quando chegar sua vez no FIFO. Destino interno igual ao andar atual é rejeitado sem alteração de estado.
+- Portas abertas impedem movimento. Embarque exige a externa correspondente, mesmo andar e sentido. Desembarque exige destino efetivamente atendido e portas abertas.
+- A **primeira escolha interna** respeita o sentido da chamada original. As seguintes podem representar outras etapas da mesma viagem; não reordenam a fila global.
+- A pessoa ativa é controlada pelo `Painel`: novos embarques selecionam a última pessoa que entrou; uma escolha manual persiste até outro embarque ou o desembarque da pessoa selecionada. Ao desembarcar, a seleção passa para alguém ainda na cabine, priorizando quem não tem destino, ou é limpa se a cabine estiver vazia.
+- Uma pessoa pode ter vários destinos pendentes. Em uma parada intermediária, remove apenas o destino atendido e permanece dentro. Desembarca ao atender seu último destino pendente, mantendo identidade e histórico.
+- Enquanto está na cabine, a posição da pessoa acompanha o elevador; sua origem permanece disponível separadamente.
+- Andares negativos, acima de 10, valores não inteiros (incluindo `bool` nas APIs numéricas), sentidos inválidos e operações fora de contexto são rejeitados sem alterar o domínio.
+
+FIFO pode produzir trajetos maiores e inversões de movimento, inclusive enquanto há pessoas na cabine. Isso é parte do exercício, que não otimiza o percurso pelo sentido solicitado.
+
+## Arquitetura e conceitos de POO
+
+| Módulo / classe | Responsabilidade |
+| --- | --- |
+| `main.py` | Entrada, argumentos e composição da aplicação; importa a interface escolhida sob demanda. |
+| `predio.py` / `Predio` | Compõe onze objetos `Andar` e seu único `Elevador`; cria os solicitantes automaticamente. |
+| `andar.py` / `Andar` | Localiza pessoas fora da cabine, permite consultar espera por sentido e encaminha chamadas. |
+| `elevador.py` / `Elevador` | Autoridade sobre posição, direção, portas, fila, solicitação ativa, passageiros, eventos e histórico. |
+| `pessoa.py` / `Pessoa` | Identidade automática, origem, localização, estados, destinos pendentes e atendidos; operações de embarque, seleção e desembarque. |
+| `painel.py` / `Painel` | Coordena acionamentos, início, pausa e atualizações; usa métodos do domínio. |
+| `interface.py` / `InterfaceElevador` | Controles Textual, eventos de entrada, temporizador e apresentação. |
+| `interface_texto.py` | Alternativa de comandos sem dependências externas. |
+
+**Classes e objetos:** as classes descrevem entidades e comportamentos; `Predio()` constrói a composição concreta da sessão. **Construtores** estabelecem estados iniciais válidos. **Atributos e métodos** reúnem os dados e as operações das entidades.
+
+**Encapsulamento:** propriedades públicas permitem leitura; mudanças passam por métodos que verificam as regras. Coleções são devolvidas como tuplas ou cópias. Atributos com `_` são internos por convenção Python; não constituem uma barreira de segurança contra código que deliberadamente ignore essa convenção. A interface não escreve neles.
+
+**Composição:** o prédio cria e organiza seus andares e seu elevador. **Associação:** a mesma pessoa se relaciona com um andar ou com a cabine, e os registros de destino se associam às pessoas interessadas. Mover uma pessoa atualiza essas relações, sem duplicar sua identidade.
+
+**Distribuição de responsabilidades:** o domínio decide se uma operação é válida; `Painel` coordena comandos; a interface mostra o resultado e recebe eventos. O temporizador chama uma atualização curta, sem executar toda a viagem em um laço bloqueante.
+
+Não há hierarquia de herança entre as entidades do domínio nem demonstração acadêmica de polimorfismo entre elas. `InterfaceElevador` herda de `textual.app.App` e implementa os métodos de integração exigidos pelo framework; essa herança de infraestrutura não foi introduzida nas entidades apenas para demonstrar o conceito.
+
+## Testes e validação
+
+Execute a partir da raiz, após instalar as dependências da interface:
+
+```sh
+python -B -m unittest discover -s tests -v
+```
+
+Suites disponíveis:
+
+```sh
+python -B -m unittest discover -s tests -p test_elevador.py -v
+python -B -m unittest discover -s tests -p test_aula13.py -v
+python -B -m unittest discover -s tests -p test_interface.py -v
+python -B -m unittest discover -s tests -p test_execucao.py -v
+python -B -m unittest discover -s tests -p test_selecao_passageiros.py -v
+```
+
+- `test_elevador.py`: os **10 testes originais**, sem alteração, para a Aula 12.
+- `test_aula13.py`: **32 testes** de domínio e fluxos integrados, incluindo os cenários A, B, C, D, E, F, G e H.
+- `test_selecao_passageiros.py`: regressões do embarque individual e em grupo, destinos independentes, alternância, bloqueio com identificação, FIFO, desembarque, fechamento automático, reutilização da sessão e layout horizontal e callbacks após o encerramento.
+- `test_interface.py`: **6 testes** da interface Textual em modo headless, com eventos de botões/teclado, temporizador real, seleção de pessoa e tela estreita de 44×32.
+- `test_execucao.py`: **7 testes** de entrada/imports, comandos, alternativa sem site-packages, loop em processo separado durante movimento e saída por interrupção.
+
+- `test_qualidade.py`: **15 testes** adicionais de portas, prazos, pausa, construtores, FIFO e identidade das pessoas.
+- `test_qualidade_interface.py`: **6 testes** adicionais com Pilot, incluindo a viagem real **1 → 5 → 6 → 7**, posição/seleção, pausa e nove etapas de redimensionamento.
+- `test_qualidade_texto.py`: **3 testes** adicionais em subprocessos POSIX, incluindo a mesma viagem e entradas inválidas.
+
+Total: **92 testes** (79 cenários anteriores e 13 novas regressões de passageiros e encerramento). No teste anterior do seletor, foi corrigida apenas a expectativa após o novo embarque: agora deve selecionar a segunda pessoa. Os demais testes existentes foram preservados integralmente. A regressão da Aula 12 corresponde ao cenário I. Os testes da interface exigem Textual; os de domínio e da alternativa textual não dependem dele. Os testes por subprocesso/descritor usam recursos POSIX compatíveis com o ambiente Termux.
+
+Os cenários verificam: chamada no 5 para descer; externas `3/descer, 0/subir, 10/descer, 8/descer` em FIFO; entrada durante percurso; destinos `4,6,9` da mesma pessoa; duplicatas antes/depois da conclusão; sentidos opostos; rejeições atômicas; ociosidade e nova chamada. Testes headless validam a aplicação real, mas não substituem avaliação física de toque e legibilidade no tablet.
+
+A espera das portas pode ser configurada nas duas interfaces:
+
+```sh
+python -m Aula_13_Predio.main --tempo-portas 1.5
+python -m Aula_13_Predio.main --texto --tempo-portas 1.5
+```
+
+Para repetir a suíte com medição de linhas pelo `trace` da biblioteca padrão:
+
+```sh
+python auditar_qualidade.py
+```
+
+As evidências ficam em `evidencias/`. Consulte [RELATORIO_QUALIDADE.md](RELATORIO_QUALIDADE.md) para resultados, cobertura, causas dos defeitos e limites da validação.
+
+## Preservação e referências
+
+As fontes `elevador.py`, `simulador.py` e o teste legado `tests/test_elevador.py` permanecem com o conteúdo original. A política de proximidade da Aula 12 continua independente do FIFO da Aula 13. A pasta `tests/` deixou de ser ignorada para permitir seu versionamento posterior; não houve commit ou push nesta implementação.
+
+As referências locais `Elevador_v3.zip` e `Elevador_v4.zip` do professor foram consideradas como material didático para movimento incremental e integração entre entidades. Não substituem o projeto. O painel visual local anterior foi reaproveitado conceitualmente, com controles Textual, disposição responsiva e temporizador; as regras e invariantes foram concentradas no domínio.
+
+Não há banco de dados, rede, capacidade máxima, persistência, múltiplos elevadores ou otimização de percurso.
+
+---
+
+## Aula 12 — documentação do algoritmo original
+
+**Instituição:** UniSenac
 **Curso:** Análise e Desenvolvimento de Sistemas (ADS)  
 **Disciplina:** Programação Orientada a Objetos (POO)  
 **Aula:** 12 — Algoritmo do Elevador  

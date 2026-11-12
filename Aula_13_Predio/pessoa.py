@@ -1,70 +1,79 @@
+"""Identidade preservada durante todas as etapas da viagem."""
+
 class Pessoa:
-    def __init__(self, nome, andar):
-        self.nome = nome
-        self.andar = andar
-        self.estado = "fora"
-        self.sentido = None
-        self.destino = None
+    def __init__(self, identificador, andar):
+        if type(identificador) is not int or identificador < 1:
+            raise ValueError("Identificador deve ser inteiro positivo.")
+        self._identificador = identificador
+        self._local = andar
+        self._origem = andar.numero
+        self._estado = "fora"
+        self._sentido = None
+        self._destinos = []
+        self._atendidos = []
 
-    def chamar_elevador(self, painel, sentido):
-        if self.estado != "fora":
-            print(f"{self.nome} já está em atendimento.")
-            return False
+    @property
+    def identificador(self):
+        return self._identificador
 
-        if painel.chamar_externo(self.andar, sentido):
-            self.sentido = sentido.lower()
-            self.estado = "aguardando"
-            return True
+    @property
+    def nome(self):
+        return f"Pessoa {self.identificador}"
 
-        return False
+    @property
+    def andar(self):
+        return (self._local.andar_atual if self.estado == "dentro"
+                else self._local.numero)
+
+    @property
+    def origem(self):
+        return self._origem
+
+    @property
+    def estado(self):
+        return self._estado
+
+    @property
+    def sentido(self):
+        return self._sentido
+
+    @property
+    def destinos(self):
+        return tuple(self._destinos)
+
+    @property
+    def destinos_atendidos(self):
+        return tuple(self._atendidos)
 
     def embarcar(self, elevador):
-        if self.estado != "aguardando":
-            print(f"{self.nome} não está aguardando.")
-            return False
+        return elevador.embarcar(self)
 
-        if elevador.andar_atual != self.andar:
-            print("O elevador ainda não chegou.")
-            return False
-
-        self.estado = "dentro"
-        print(f"{self.nome} entrou no elevador.")
-        return True
-
-    def escolher_destino(self, painel):
-        if self.estado != "dentro":
-            print("A pessoa precisa embarcar primeiro.")
-            return None
-
-        destino = painel.escolher_destino()
-
-        if destino is not None:
-            self.destino = destino
-
-        return destino
+    def selecionar_destino(self, andar, elevador):
+        return elevador.registrar_destino_interno(andar, self)
 
     def desembarcar(self, elevador):
-        if self.estado != "dentro":
-            return False
+        return elevador.desembarcar(self)
 
-        if self.destino is None:
-            return False
+    def _aguardar(self, sentido):
+        self._sentido = sentido
+        self._estado = "aguardando"
 
-        if elevador.andar_atual != self.destino:
-            print("O elevador ainda não chegou ao destino.")
-            return False
+    def _entrar(self, elevador):
+        self._local = elevador
+        self._estado = "dentro"
 
-        self.andar = self.destino
-        self.estado = "fora"
-        self.sentido = None
-        self.destino = None
+    def _adicionar_destino(self, andar):
+        self._destinos.append(andar)
 
-        print(f"{self.nome} desembarcou no andar {self.andar}.")
-        return True
+    def _atender_destino(self, andar):
+        self._destinos.remove(andar)
+        self._atendidos.append(andar)
+
+    def _sair(self, andar):
+        self._local = andar
+        self._estado = "fora"
+        self._sentido = None
 
     def mostrar_estado(self):
-        print(f"\n{self.nome}")
-        print(f"Andar: {self.andar}")
-        print(f"Estado: {self.estado}")
-        print(f"Sentido: {self.sentido}")
-        print(f"Destino: {self.destino}")
+        print(f"{self.nome}: {self.estado}, andar {self.andar}, "
+              f"destinos {self.destinos}, atendidos {self.destinos_atendidos}")

@@ -1,155 +1,169 @@
-from predio import Predio
-from pessoa import Pessoa
-from painel import Painel
+"""Coordena comandos; o estado físico pertence ao domínio."""
+
+import math
+import time
 
 
-def main():
-    predio = Predio(11)
-    elevador = predio.elevador
-    painel = Painel(elevador, predio.total_andares)
+class Painel:
+    def __init__(self, predio, tempo_portas=1.5, relogio=time.monotonic):
+        if (isinstance(tempo_portas, bool) or not isinstance(tempo_portas, (int, float))
+                or not math.isfinite(tempo_portas) or tempo_portas < 0):
+            raise ValueError("O tempo das portas deve ser finito e não negativo.")
+        self._predio = predio
+        self._iniciado = False
+        self._pausado = False
+        self._tempo_portas = tempo_portas
+        self._relogio = relogio
+        self._parada_temporizada = None
+        self._prazo_portas = None
+        self._inicio_pausa = None
+        self._pessoa_ativa = None
+        self._passageiros_conhecidos = ()
 
-    pessoas = []
-    grupos = {}
-    viagens = []
+    @property
+    def tempo_portas(self):
+        return self._tempo_portas
 
-    print("=" * 44)
-    print("       SISTEMA DE ELEVADOR")
-    print("=" * 44)
-    print("Prédio: 11 pavimentos (0 a 10)")
-    print("Elevadores: 1")
-    print("Atendimento: fila FIFO")
+    @property
+    def predio(self):
+        return self._predio
 
-    # Registrar todas as chamadas externas
-    iniciar = painel.registrar_chamadas_interativamente()
+    @property
+    def elevador(self):
+        return self.predio.elevador
 
-    if not iniciar:
-        print("\nSimulação encerrada.")
-        return
+    @property
+    def iniciado(self):
+        return self._iniciado
 
-    # Criar as pessoas dos grupos registrados
-    for chamada in elevador.consultar_fila():
-        if chamada["tipo"] != "externa":
-            continue
+    @property
+    def pausado(self):
+        return self._pausado
 
-        andar = chamada["andar"]
-        sentido = chamada["sentido"]
-        quantidade = chamada["quantidade_pessoas"]
+    @property
+    def situacao(self):
+        if not self.iniciado:
+            return "aguardando início"
+        if self.pausado:
+            return "pausado"
+        return self.elevador.situacao
 
-        integrantes = []
+    def iniciar(self):
+        # O atalho Iniciar não deve desfazer uma pausa em uma sessão ativa.
+        if not self.iniciado:
+            self._iniciado = True
 
-        for _ in range(quantidade):
-            numero = len(pessoas) + 1
-            pessoa = Pessoa(f"Pessoa {numero}", andar)
+    def alternar_pausa(self):
+        if not self.iniciado:
+            raise ValueError("Inicie o atendimento primeiro.")
+        agora = self._relogio()
+        if self.pausado:
+            if self._prazo_portas is not None:
+                self._prazo_portas += agora - self._inicio_pausa
+            self._inicio_pausa = None
+        else:
+            self._inicio_pausa = agora
+        self._pausado = not self.pausado
+        return self.pausado
 
-            pessoa.estado = "aguardando"
-            pessoa.sentido = sentido
+    def chamar_externo(self, andar, sentido, quantidade=1):
+        return self.predio.chamar_elevador(andar, sentido, quantidade)
 
-            pessoas.append(pessoa)
-            integrantes.append(pessoa)
+    @property
+    def pessoa_ativa(self):
+        """Novo embarque tem prioridade; atualizações comuns mantêm a escolha."""
+        return self._sincronizar_pessoa_ativa()
 
-        grupos[(andar, sentido)] = integrantes
+    def _sincronizar_pessoa_ativa(self):
+        passageiros = self.elevador.passageiros
+        novos = [p for p in passageiros if p not in self._passageiros_conhecidos]
+        if novos:
+            self._pessoa_ativa = novos[-1]
+        elif self._pessoa_ativa not in passageiros:
+            self._pessoa_ativa = next((p for p in passageiros if not p.destinos),
+                                      passageiros[-1] if passageiros else None)
+        self._passageiros_conhecidos = passageiros
+        return self._pessoa_ativa
 
-    print("\n=== PESSOAS REGISTRADAS ===")
+    def selecionar_pessoa(self, identificador):
+        if type(identificador) is not int:
+            raise ValueError("Identificador inválido.")
+        pessoa = next((p for p in self.elevador.passageiros
+                       if p.identificador == identificador), None)
+        if pessoa is None:
+            raise ValueError("A pessoa selecionada não está na cabine.")
+        # Reconhecer embarques antes de aplicar a escolha manual evita que
+        # a próxima atualização desfaça a seleção feita pelo usuário.
+        self._sincronizar_pessoa_ativa()
+        self._pessoa_ativa = pessoa
+        return pessoa
 
-    for pessoa in pessoas:
-        print(
-            f"{pessoa.nome}: andar {pessoa.andar}, "
-            f"aguardando para {pessoa.sentido}"
-        )
+    def escolher_destino(self, andar, identificador=None):
+        if not self.elevador.passageiros:
+            raise ValueError("Embarque antes de usar o painel interno.")
+        pessoa = (self.pessoa_ativa if identificador is None
+                  else self.selecionar_pessoa(identificador))
+        return pessoa.selecionar_destino(andar, self.elevador)
 
-    # Atendimento FIFO: uma parada por vez
-    while elevador.consultar_fila():
-        print("\n" + "=" * 44)
-        print("       PRÓXIMO ATENDIMENTO")
-        print("=" * 44)
+    def fechar_portas(self):
+        resultado = self.elevador.fechar_portas()
+        self._cancelar_fechamento()
+        return resultado
 
-        proxima = elevador.consultar_fila()[0]
+    def _cancelar_fechamento(self):
+        self._parada_temporizada = None
+        self._prazo_portas = None
 
-        elevador.atender_proxima_solicitacao()
+    def _temporizar_parada(self):
+        """O prazo pertence à ordem da parada, nunca à abertura seguinte."""
+        fila = self.elevador.consultar_fila()
+        if not self.elevador.portas_abertas or not fila or fila[0]["tipo"] != "interna":
+            self._cancelar_fechamento()
+            return
+        ordem = fila[0]["ordem"]
+        if ordem != self._parada_temporizada:
+            self._parada_temporizada = ordem
+            self._prazo_portas = self._relogio() + self.tempo_portas
 
-        andar = elevador.andar_atual
+    def atualizar(self, mover=True):
+        """Pulso curto: fecha quando seguro ou avança no máximo um andar.
 
-        # Desembarcar quem chegou ao destino
-        for pessoa in pessoas:
-            if (
-                pessoa.estado == "dentro"
-                and pessoa.destino == andar
-            ):
-                origem = pessoa.andar
-                destino = pessoa.destino
+        As interfaces podem consultar portas com mover=False entre os passos
+        do motor. Não há callbacks de fechamento acumulados entre paradas.
+        """
+        if not self.iniciado or self.pausado:
+            return {"evento": "aguardando"}
+        self._temporizar_parada()
+        if self.elevador.portas_abertas:
+            # Embarque externo permanece manual para permitir várias escolhas.
+            # Cabine vazia mantém o fechamento no próximo passo do motor.
+            vazio = not self.elevador.passageiros and mover
+            prazo = (self._prazo_portas is not None
+                     and self._relogio() >= self._prazo_portas)
+            seguros = all(p.destinos for p in self.elevador.passageiros)
+            if seguros and (vazio or prazo):
+                self.fechar_portas()
+                return {"evento": "fechamento"}
+            return {"evento": "portas_abertas", "andar": self.elevador.andar_atual}
+        if not mover:
+            return {"evento": "aguardando"}
+        resultado = self.elevador.avancar_um_andar()
+        self._sincronizar_pessoa_ativa()
+        self._temporizar_parada()
+        return resultado
 
-                if pessoa.desembarcar(elevador):
-                    viagens.append({
-                        "pessoa": pessoa.nome,
-                        "origem": origem,
-                        "destino": destino
-                    })
+    def mostrar_fila(self):
+        for registro in self.elevador.consultar_fila():
+            print(registro)
 
-        # Embarcar quem fez a chamada externa
-        if proxima["tipo"] == "externa":
-            chave = (
-                proxima["andar"],
-                proxima["sentido"]
-            )
-
-            integrantes = grupos.get(chave, [])
-
-            embarcando = []
-
-            for pessoa in integrantes:
-                if pessoa.embarcar(elevador):
-                    embarcando.append(pessoa)
-
-            if embarcando:
-                print(
-                    f"\n{len(embarcando)} pessoa(s) "
-                    f"embarcaram no andar {andar}."
-                )
-
-                primeiro_numero = int(
-                    embarcando[0].nome.split()[-1]
-                )
-
-                destinos = painel.escolher_destinos_grupo(
-                    quantidade_pessoas=len(embarcando),
-                    sentido=proxima["sentido"],
-                    primeiro_numero=primeiro_numero
-                )
-
-                for pessoa, registro in zip(
-                    embarcando, destinos
-                ):
-                    pessoa.destino = registro["destino"]
-
-        print("\nFila após atendimento:")
-        painel.mostrar_fila()
-
-    # Relatório final
-    print("\n" + "=" * 44)
-    print("       RELATÓRIO DE VIAGENS")
-    print("=" * 44)
-
-    for numero, viagem in enumerate(viagens, 1):
-        print(
-            f"{numero}. {viagem['pessoa']} | "
-            f"{viagem['origem']} -> {viagem['destino']}"
-        )
-
-    print(f"\nTotal de pessoas: {len(pessoas)}")
-    print(f"Viagens concluídas: {len(viagens)}")
-
-    print("\n=== ESTADO DAS PESSOAS ===")
-
-    for pessoa in pessoas:
-        pessoa.mostrar_estado()
-
-    print("\n=== ESTADO DO ELEVADOR ===")
-    print("Andar atual:", elevador.andar_atual)
-    print("Direção:", elevador.direcao)
-    print("Fila:", elevador.solicitacoes)
-
-    painel.mostrar_registros()
-
-
-if __name__ == "__main__":
-    main()
+    def mostrar_registros(self):
+        """Relatório da sessão, incluindo viagens concluídas e pendências."""
+        print("\n=== RELATÓRIO DA SESSÃO ===")
+        for registro in self.elevador.historico:
+            print(f"#{registro['ordem']} {registro['tipo']}: "
+                  f"andar {registro['andar']} {registro.get('sentido', '')} — concluída")
+        for pessoa in self.predio.pessoas:
+            print(f"{pessoa.nome}: origem {pessoa.origem}; "
+                  f"destinos atendidos {pessoa.destinos_atendidos}; "
+                  f"pendentes {pessoa.destinos}; {pessoa.estado} no andar {pessoa.andar}")
+        print("Fila restante:", self.elevador.consultar_fila())
