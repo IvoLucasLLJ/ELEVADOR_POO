@@ -1,13 +1,82 @@
 # ELEVADOR_POO — UniSenac
 
-Projeto acadêmico de Programação Orientada a Objetos em Python, desenvolvido no Termux/Android.
+Projeto acadêmico de Programação Orientada a Objetos em Python, desenvolvido no Termux/Android. O repositório documenta a evolução do simulador em três etapas, mantendo as implementações anteriores para consulta e comparação:
 
-O repositório preserva **duas implementações independentes**:
+1. **Aula 12 — algoritmo original de movimentação:** classe `Elevador` e simulador textual na raiz, com atendimento por proximidade e direção. Os dois arquivos-fonte e os dez testes originais foram preservados.
+2. **Aula 13 — evolução modular:** pacote [Aula_13_Predio](Aula_13_Predio/), com prédio, pessoas, painéis externo e interno, portas e fila global FIFO para um elevador e onze pavimentos, de `0` a `10`.
+3. **Aula 14 — versão completa em arquivo único:** aplicação independente dos módulos anteriores, preparada para a entrega parcial e **publicada em 12/11/2026**. É a **versão atual** do projeto, disponível em [Aula_14_Elevador no GitHub](https://github.com/IvoLucasLLJ/ELEVADOR_POO/tree/main/Aula_14_Elevador).
 
-- **Aula 12:** algoritmo por proximidade/direção e simulador textual originais, na raiz. Seus dois fontes e dez testes foram preservados.
-- **Aula 13:** evolução em `Aula_13_Predio`, com exatamente um elevador, onze pavimentos (`0` a `10`), chamadas externas e destinos internos, pessoas, portas e atendimento FIFO.
+## Navegação
 
-## Instalação e execução no Termux
+- [Aula 14: versão atual, execução e validação](#aula-14-versão-atual-e-entrega-parcial)
+- [Aula 13: execução, regras, arquitetura e testes](#aula-13-evolução-modular)
+- [Aula 12: algoritmo e simulador originais](#aula-12-algoritmo-original-de-movimentação)
+
+## Aula 14: versão atual e entrega parcial
+
+A entrega de **12 de novembro de 2026** reúne as entidades, o controlador e as interfaces em `Aula_14_Elevador/elevador_completo.py`. Ela mantém um elevador, onze pavimentos, pessoas com destinos próprios e atendimento FIFO. Cada chamada externa pode representar um grupo, e uma pessoa pode registrar vários destinos. Os dados permanecem em memória durante a sessão.
+
+A pasta publicada contém exclusivamente:
+
+- [`00_LEIA_PRIMEIRO.md`](Aula_14_Elevador/00_LEIA_PRIMEIRO.md): orientações da entrega, conceitos de POO e escopo.
+- [`elevador_completo.py`](Aula_14_Elevador/elevador_completo.py): aplicação completa em arquivo único.
+- [`requirements.txt`](Aula_14_Elevador/requirements.txt): dependência da interface visual, fixada em `textual==8.2.8`.
+
+A publicação foi realizada no commit [838c271 — Adiciona entrega parcial do elevador - Aula 14](https://github.com/IvoLucasLLJ/ELEVADOR_POO/commit/838c27158d9c671afa47b5c3e9beb551c0a4db11).
+
+### Execução da Aula 14
+
+Requer **Python 3.10 ou superior**. No Termux, caso o Python ainda não esteja instalado, execute `pkg install python`. Entre na pasta da versão atual:
+
+```sh
+cd /storage/emulated/0/Documents/POO/Aula_12_Elevador/Aula_14_Elevador
+```
+
+Para instalar a dependência e iniciar a **interface visual Textual**:
+
+```sh
+python -m pip install -r requirements.txt
+python elevador_completo.py
+```
+
+Para iniciar a **interface textual**, na mesma pasta, sem instalar bibliotecas externas:
+
+```sh
+python elevador_completo.py --texto
+```
+
+A alternativa textual utiliza recursos POSIX disponíveis no Termux. O tempo de fechamento das portas nas paradas internas pode ser configurado em qualquer uma das interfaces; por exemplo:
+
+```sh
+python elevador_completo.py --texto --tempo-portas 1.5
+```
+
+Na interface textual, digite cada comando separadamente:
+
+```text
+externa 3 descer 2
+iniciar
+```
+
+Aguarde a chegada ao andar 3 e o embarque das duas pessoas. Em seguida, registre os destinos individuais e feche as portas:
+
+```text
+interna 0 1
+interna 1 2
+fechar
+```
+
+Os comandos `status`, `pessoa ID`, `pausar`, `ajuda` e `sair` permitem acompanhar e controlar a sessão. Depois de `iniciar`, o movimento avança mesmo sem novos comandos. As instruções completas estão em [00_LEIA_PRIMEIRO.md](Aula_14_Elevador/00_LEIA_PRIMEIRO.md).
+
+### Validação da entrega parcial
+
+Na preparação da Aula 14, foram aprovadas a verificação de sintaxe do Python e a execução textual básica: chamada externa no andar 3, embarque de duas pessoas, destinos 0 e 1, desembarques, fila final vazia e encerramento sem erros. **A interface visual da Aula 14 não foi validada nessa etapa.** Os 92 testes históricos apresentados na seção da Aula 13 pertencem às implementações das aulas 12 e 13.
+
+## Aula 13: evolução modular
+
+Esta seção preserva a documentação técnica do pacote `Aula_13_Predio/`. Seus comandos partem da raiz do repositório e executam a versão modular; a Aula 14 é iniciada pelo arquivo e pelo diretório indicados na seção anterior.
+
+### Instalação e execução da Aula 13 no Termux
 
 Requer Python **3.10 ou superior**. Desenvolvimento e testes realizados com Python **3.13.13** no Termux Android/aarch64. A interface visual utiliza **Textual 8.2.8**, fixado em `requirements.txt`.
 
@@ -29,7 +98,7 @@ O caminho equivalente `~/storage/shared/Documents/POO/Aula_12_Elevador` pode ser
 
 Textual já estava instalado no ambiente usado na implementação; não foi necessário instalar ou atualizar pacotes. O comando de instalação acima é a orientação para ambientes novos, não uma afirmação de instalação limpa verificada.
 
-### Uso da interface visual
+#### Uso da interface visual
 
 1. No **painel externo**, selecione um andar e pressione **SUBIR** ou **DESCER**. A quantidade padrão é uma pessoa; para embarcar um grupo na mesma parada, escolha a quantidade antes de chamar. Os identificadores são automáticos.
 2. Registre outras chamadas se desejar e pressione **Iniciar** (`i`). O atendimento avança automaticamente, um andar por segundo.
@@ -45,7 +114,7 @@ O painel mostra **POSIÇÃO ATUAL: ANDAR N**. Nos botões, `>N` marca a cabine, 
 
 Use Tab/Shift+Tab para navegar e Enter para acionar botões; os controles também aceitam eventos de mouse quando oferecidos pelo terminal. O suporte a toque como mouse depende da configuração do Termux/Android e não foi validado fisicamente nesta implementação. A disposição muda para uma coluna em terminais estreitos, com rolagem. Os painéis ficam lado a lado a partir de 85 colunas e empilhados em larguras menores; a partir de 110 colunas, as grades usam seis colunas e duas linhas para reduzir a altura dos painéis; abaixo de 40 colunas, usam três colunas. Os controles inferiores ficam em duas linhas nas telas estreitas. A rolagem permite consultar painéis, fila e histórico em terminais baixos.
 
-### Alternativa funcional sem Textual
+#### Alternativa funcional sem Textual
 
 ```sh
 python -m Aula_13_Predio.main --texto
@@ -82,7 +151,7 @@ Comandos disponíveis:
 
 EOF (Ctrl+D) e Ctrl+C encerram essa alternativa sem traceback. `select` aguarda entrada ou o próximo intervalo; não há laço de espera ocupada. Essa interface alternativa é voltada a Termux/POSIX, não ao console nativo do Windows.
 
-## Regras da Aula 13
+### Regras da Aula 13
 
 - São exatamente onze pavimentos, com índices `0..10`; `Predio` rejeita configurações diferentes.
 - Há uma única instância de elevador criada pelo prédio.
@@ -102,7 +171,7 @@ EOF (Ctrl+D) e Ctrl+C encerram essa alternativa sem traceback. `select` aguarda 
 
 FIFO pode produzir trajetos maiores e inversões de movimento, inclusive enquanto há pessoas na cabine. Isso é parte do exercício, que não otimiza o percurso pelo sentido solicitado.
 
-## Arquitetura e conceitos de POO
+### Arquitetura e conceitos de POO da Aula 13
 
 | Módulo / classe | Responsabilidade |
 | --- | --- |
@@ -125,15 +194,15 @@ FIFO pode produzir trajetos maiores e inversões de movimento, inclusive enquant
 
 Não há hierarquia de herança entre as entidades do domínio nem demonstração acadêmica de polimorfismo entre elas. `InterfaceElevador` herda de `textual.app.App` e implementa os métodos de integração exigidos pelo framework; essa herança de infraestrutura não foi introduzida nas entidades apenas para demonstrar o conceito.
 
-## Testes e validação
+### Testes e validação das aulas 12 e 13
 
-Execute a partir da raiz, após instalar as dependências da interface:
+As suítes desta seção exercitam o algoritmo da Aula 12 e a implementação modular da Aula 13. Elas não constituem validação automática da versão em arquivo único da Aula 14. Execute a partir da raiz, após instalar as dependências da interface da Aula 13:
 
 ```sh
 python -B -m unittest discover -s tests -v
 ```
 
-Suites disponíveis:
+A descoberta geral executa todos os arquivos de teste presentes em `tests/`. Para selecionar apenas as suítes publicadas das aulas 12 e 13, use os comandos específicos abaixo:
 
 ```sh
 python -B -m unittest discover -s tests -p test_elevador.py -v
@@ -141,19 +210,21 @@ python -B -m unittest discover -s tests -p test_aula13.py -v
 python -B -m unittest discover -s tests -p test_interface.py -v
 python -B -m unittest discover -s tests -p test_execucao.py -v
 python -B -m unittest discover -s tests -p test_selecao_passageiros.py -v
+python -B -m unittest discover -s tests -p test_qualidade.py -v
+python -B -m unittest discover -s tests -p test_qualidade_interface.py -v
+python -B -m unittest discover -s tests -p test_qualidade_texto.py -v
 ```
 
 - `test_elevador.py`: os **10 testes originais**, sem alteração, para a Aula 12.
 - `test_aula13.py`: **32 testes** de domínio e fluxos integrados, incluindo os cenários A, B, C, D, E, F, G e H.
-- `test_selecao_passageiros.py`: regressões do embarque individual e em grupo, destinos independentes, alternância, bloqueio com identificação, FIFO, desembarque, fechamento automático, reutilização da sessão e layout horizontal e callbacks após o encerramento.
+- `test_selecao_passageiros.py`: **13 testes** de regressão do embarque individual e em grupo, destinos independentes, alternância, bloqueio com identificação, FIFO, desembarque, fechamento automático, reutilização da sessão e layout horizontal e callbacks após o encerramento.
 - `test_interface.py`: **6 testes** da interface Textual em modo headless, com eventos de botões/teclado, temporizador real, seleção de pessoa e tela estreita de 44×32.
 - `test_execucao.py`: **7 testes** de entrada/imports, comandos, alternativa sem site-packages, loop em processo separado durante movimento e saída por interrupção.
-
 - `test_qualidade.py`: **15 testes** adicionais de portas, prazos, pausa, construtores, FIFO e identidade das pessoas.
 - `test_qualidade_interface.py`: **6 testes** adicionais com Pilot, incluindo a viagem real **1 → 5 → 6 → 7**, posição/seleção, pausa e nove etapas de redimensionamento.
 - `test_qualidade_texto.py`: **3 testes** adicionais em subprocessos POSIX, incluindo a mesma viagem e entradas inválidas.
 
-Total: **92 testes** (79 cenários anteriores e 13 novas regressões de passageiros e encerramento). No teste anterior do seletor, foi corrigida apenas a expectativa após o novo embarque: agora deve selecionar a segunda pessoa. Os demais testes existentes foram preservados integralmente. A regressão da Aula 12 corresponde ao cenário I. Os testes da interface exigem Textual; os de domínio e da alternativa textual não dependem dele. Os testes por subprocesso/descritor usam recursos POSIX compatíveis com o ambiente Termux.
+A auditoria histórica registrou **92 testes aprovados: 10 da Aula 12 e 82 da Aula 13** (79 cenários anteriores e 13 regressões de passageiros e encerramento). Na evolução do seletor da Aula 13, foi corrigida apenas a expectativa após o novo embarque: passou a selecionar a segunda pessoa. Os demais testes existentes foram preservados integralmente. A regressão da Aula 12 corresponde ao cenário I. Os testes da interface exigem Textual; os de domínio e da alternativa textual não dependem dele. Os testes por subprocesso/descritor usam recursos POSIX compatíveis com o ambiente Termux.
 
 Os cenários verificam: chamada no 5 para descer; externas `3/descer, 0/subir, 10/descer, 8/descer` em FIFO; entrada durante percurso; destinos `4,6,9` da mesma pessoa; duplicatas antes/depois da conclusão; sentidos opostos; rejeições atômicas; ociosidade e nova chamada. Testes headless validam a aplicação real, mas não substituem avaliação física de toque e legibilidade no tablet.
 
@@ -170,11 +241,11 @@ Para repetir a suíte com medição de linhas pelo `trace` da biblioteca padrão
 python auditar_qualidade.py
 ```
 
-As evidências ficam em `evidencias/`. Consulte [RELATORIO_QUALIDADE.md](RELATORIO_QUALIDADE.md) para resultados, cobertura, causas dos defeitos e limites da validação.
+O comando gera evidências locais em `evidencias/` e descobre todos os testes presentes em `tests/`; arquivos adicionais podem alterar o total executado. Consulte [RELATORIO_QUALIDADE.md](RELATORIO_QUALIDADE.md) para os resultados históricos das aulas 12 e 13, cobertura, causas dos defeitos e limites da validação. As referências desse relatório à ausência de commit ou push descrevem a etapa local de preparação; os códigos e testes dessas aulas já estão publicados.
 
-## Preservação e referências
+### Preservação e referências
 
-As fontes `elevador.py`, `simulador.py` e o teste legado `tests/test_elevador.py` permanecem com o conteúdo original. A política de proximidade da Aula 12 continua independente do FIFO da Aula 13. A pasta `tests/` deixou de ser ignorada para permitir seu versionamento posterior; não houve commit ou push nesta implementação.
+As fontes `elevador.py`, `simulador.py` e o teste legado `tests/test_elevador.py` permanecem com o conteúdo original. A política de proximidade da Aula 12 continua independente do FIFO da Aula 13. Os módulos da Aula 13 e suas suítes de testes estão versionados e publicados no repositório; a entrega parcial da Aula 14 foi acrescentada em pasta própria, preservando esses materiais e seu histórico.
 
 As referências locais `Elevador_v3.zip` e `Elevador_v4.zip` do professor foram consideradas como material didático para movimento incremental e integração entre entidades. Não substituem o projeto. O painel visual local anterior foi reaproveitado conceitualmente, com controles Textual, disposição responsiva e temporizador; as regras e invariantes foram concentradas no domínio.
 
@@ -182,7 +253,7 @@ Não há banco de dados, rede, capacidade máxima, persistência, múltiplos ele
 
 ---
 
-## Aula 12 — documentação do algoritmo original
+## Aula 12: algoritmo original de movimentação
 
 **Instituição:** UniSenac
 **Curso:** Análise e Desenvolvimento de Sistemas (ADS)  
@@ -191,13 +262,13 @@ Não há banco de dados, rede, capacidade máxima, persistência, múltiplos ele
 **Data:** 22 de outubro de 2026  
 **Linguagem:** Python
 
-## 1. Objetivo
+### 1. Objetivo
 
 Simular, em Python, o atendimento de chamadas de um elevador. O exercício aplica os fundamentos de Programação Orientada a Objetos para representar o elevador, armazenar suas solicitações e controlar os deslocamentos entre andares.
 
 O programa foi desenvolvido de maneira incremental: primeiro a classe e os atributos, depois o registro de chamadas, a movimentação, as paradas intermediárias, a remoção de solicitações atendidas e, por fim, a escolha da ordem de atendimento.
 
-## 2. Funcionalidades implementadas
+### 2. Funcionalidades implementadas
 
 - Criar um elevador inicialmente no andar `0`, com direção `parado` e lista de solicitações vazia.
 - Registrar chamadas por andar, evitando duplicatas.
@@ -209,11 +280,11 @@ O programa foi desenvolvido de maneira incremental: primeiro a classe e os atrib
 - Atender uma chamada no andar atual sem deslocamento.
 - Encerrar com a direção `parado` quando o deslocamento termina.
 
-## 3. Estrutura do programa
+### 3. Estrutura do programa
 
 O projeto está organizado em dois arquivos: `elevador.py` contém a classe `Elevador` e uma demonstração do algoritmo; `simulador.py` oferece uma interface interativa de terminal e importa essa classe. Cada arquivo executa seu fluxo principal somente quando é iniciado diretamente.
 
-### Classe `Elevador`
+#### Classe `Elevador`
 
 A classe representa o elevador como um objeto que reúne **estado** (atributos) e **comportamento** (métodos).
 
@@ -227,7 +298,7 @@ A classe representa o elevador como um objeto que reúne **estado** (atributos) 
 | `mover_para(self, andar_destino)` | Move o elevador andar a andar, anuncia as paradas e remove solicitações atendidas. |
 | `atender_solicitacoes(self)` | Decide a sequência de atendimento e chama `mover_para()` para executar os deslocamentos. |
 
-### Como a escolha do trajeto funciona
+#### Como a escolha do trajeto funciona
 
 O método `atender_solicitacoes()` verifica inicialmente se há chamada para o andar atual e, nesse caso, a atende sem mover o elevador.
 
@@ -241,7 +312,7 @@ Enquanto houver solicitações pendentes:
 
 Essa é uma **heurística simples de atendimento por direção**, não uma garantia matemática do menor trajeto possível em todos os cenários. As chamadas são consideradas conforme a lista existente durante a execução sequencial da demonstração.
 
-## 4. Desenvolvimento em seis etapas
+### 4. Desenvolvimento em seis etapas
 
 | Etapa | Implementação | Conceitos praticados |
 | --- | --- | --- |
@@ -252,7 +323,7 @@ Essa é uma **heurística simples de atendimento por direção**, não uma garan
 | 5 | Remoção de solicitações atendidas. | Atualização do estado e consistência dos dados. |
 | 6 | Método `atender_solicitacoes()` para definir a ordem das viagens. | Separação de responsabilidades e reutilização de métodos. |
 
-## 5. Exemplo de execução
+### 5. Exemplo de execução
 
 No trecho demonstrativo do arquivo, é criada uma instância de `Elevador` e seu andar atual é definido como `4`. Depois são registradas as chamadas para os andares `7`, `2`, `5` e `1`.
 
@@ -274,7 +345,7 @@ O elevador sobe do 4º ao 7º andar, parando no 5º; depois desce até o 1º, pa
 
 **Observação:** `__init__` começa no andar `0`. A atribuição `elevador.andar_atual = 4` é feita apenas para configurar o cenário da demonstração.
 
-## 6. Conceitos de Programação Orientada a Objetos
+### 6. Conceitos de Programação Orientada a Objetos
 
 **Classe e objeto.** `Elevador` é a classe que descreve como um elevador funciona; `elevador = Elevador()` cria um objeto concreto dessa classe.
 
@@ -292,11 +363,11 @@ O elevador sobe do 4º ao 7º andar, parando no 5º; depois desce até o 1º, pa
 
 **Encapsulamento (parcial).** As ações principais são organizadas em métodos, mas os atributos continuam públicos e podem ser alterados diretamente, como acontece na demonstração com `elevador.andar_atual = 4`. Portanto, o projeto **não** implementa encapsulamento restritivo com atributos privados ou propriedades.
 
-**Ainda não utilizados:** herança e polimorfismo. Esses recursos não são necessários para o escopo atual.
+**Ainda não utilizados na Aula 12:** herança e polimorfismo. Esses recursos não são necessários para o escopo dessa versão.
 
 As estruturas `if`, `while`, listas, `min()`, `max()` e `lambda` fazem parte da lógica de programação em Python e são empregadas dentro dos métodos da classe.
 
-## 7. Como executar
+### 7. Como executar
 
 É necessário ter Python instalado. Abra um terminal na pasta do projeto e execute:
 
@@ -313,7 +384,7 @@ python elevador.py
 
 O bloco `if __name__ == '__main__':` permite executar essa demonstração quando o arquivo é iniciado diretamente, sem executá-la automaticamente caso a classe seja importada por outro arquivo.
 
-### Execução da interface interativa
+#### Execução da interface interativa
 
 Para utilizar o elevador por meio de perguntas e respostas no terminal, execute na pasta do projeto:
 
@@ -323,7 +394,7 @@ python simulador.py
 
 Essa execução cria um elevador no andar `0` e permite registrar chamadas interativamente. Já `python elevador.py` permanece como demonstração do algoritmo com as chamadas predefinidas da seção 5. Não são necessárias bibliotecas externas.
 
-## 8. Interface interativa de terminal
+### 8. Interface interativa de terminal
 
 A interface de `simulador.py` conduz o usuário pelas seguintes etapas:
 
@@ -336,7 +407,7 @@ A interface de `simulador.py` conduz o usuário pelas seguintes etapas:
 
 As paradas são coletadas antes do deslocamento, sempre em relação ao andar atual. A ordem de digitação não determina a ordem de atendimento: a classe aplica o algoritmo descrito na seção 3. Não é possível inserir novas chamadas ou interromper o movimento pelo menu durante o atendimento.
 
-### Validação de entradas e tratamento de exceções
+#### Validação de entradas e tratamento de exceções
 
 - Os comandos do menu e as respostas de confirmação passam por `strip()` e `lower()`, que removem espaços nas extremidades e normalizam letras maiúsculas para minúsculas.
 - O menu aceita somente `subir`, `descer` e `parar`. Outras entradas produzem uma orientação e repetem a pergunta.
@@ -347,7 +418,7 @@ As paradas são coletadas antes do deslocamento, sempre em relação ao andar at
 
 Essas verificações pertencem ao simulador. A classe `Elevador` não valida o intervalo de andares nem o tipo das chamadas recebidas diretamente por seus métodos.
 
-### Funções e separação de responsabilidades
+#### Funções e separação de responsabilidades
 
 | Função de `simulador.py` | Responsabilidade |
 | --- | --- |
@@ -361,7 +432,7 @@ Essa organização separa a interação e a validação de entradas, concentrada
 
 O bloco `if __name__ == '__main__':` de `simulador.py` chama `main()` apenas na execução direta. Da mesma forma, importar `Elevador` não executa a demonstração de `elevador.py`.
 
-### Exemplo de interação no terminal
+#### Exemplo de interação no terminal
 
 No exemplo, o usuário confirma duas paradas, nos andares `2` e `4`, e encerra após o atendimento:
 
@@ -395,15 +466,15 @@ Subir, descer ou parar? parar
 Simulação encerrada.
 ```
 
-### Relação com os conceitos de POO
+#### Relação com os conceitos de POO
 
 O simulador utiliza uma **instância** de `Elevador` durante toda a execução: seus **atributos** preservam o estado entre viagens, e seus **métodos** registram e atendem chamadas. A interface reutiliza a **abstração** do elevador por meio desses métodos, mantendo a separação de responsabilidades apresentada na seção 6.
 
 As funções de entrada são funções de módulo, não métodos da classe. Seu uso complementa a organização orientada a objetos, sem introduzir herança ou polimorfismo. O encapsulamento permanece parcial, pois a interface consulta diretamente os atributos públicos `andar_atual` e `solicitacoes`.
 
-## 9. Limitações e possibilidades de evolução
+### 9. Limitações e possibilidades de evolução
 
-**Não fazem parte da versão atual:**
+**Não fazem parte da versão da Aula 12:**
 
 - Botões externos separados para solicitar subida ou descida.
 - Distinção entre chamada no andar e escolha do destino dentro da cabine.
