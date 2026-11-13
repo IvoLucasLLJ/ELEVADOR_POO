@@ -1,7 +1,9 @@
 # Aula 15 — Programação Orientada a Objetos
 
-**Autor:** Ivo Lucas de Lima Júnior  
-**Projeto:** Elevador POO — refatoração SOLID  
+**Autor:** Ivo Lucas de Lima Júnior
+
+**Projeto:** Elevador POO — refatoração SOLID
+
 **Repositório de referência:** `IvoLucasLLJ/ELEVADOR_POO`
 
 Simulador de um elevador em um prédio com onze pavimentos, numerados de 0 a 10. A Aula 15 reorganiza as responsabilidades da versão da Aula 14: fila, movimento e passageiros passam a colaboradores próprios, coordenados por `Elevador`. A apresentação dos dados fica em funções e nas interfaces. Toda a implementação de produção permanece em `elevador_completo.py`, preservado byte a byte nesta preparação.
