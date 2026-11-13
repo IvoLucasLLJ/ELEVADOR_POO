@@ -1,0 +1,100 @@
+{
+  "data": "2026-11-12T23:12:54.646316-03:00",
+  "pasta": "/storage/emulated/0/Documents/POO/Aula_15_Elevador",
+  "programa": {
+    "arquivo": "elevador_completo.py",
+    "sha256_antes": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+    "sha256_depois": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+    "bytes": 48664,
+    "preservado": true
+  },
+  "relatorio_historico_preservado_integralmente": true,
+  "sha256_trecho_historico": "3c76a95e8bdba406ec5b9ff7bc895c1752a05cb9158c63c4eb29850833df87c7",
+  "links_locais_conferidos": [
+    {
+      "documento": "README.md",
+      "destino": "Guia_Elevador_POO_SOLID.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "evidencias/VALIDACAO_LOCAL.md"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "ambiente_inicial.json"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "testes_termux.log"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "execucao_testes.json"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "testes_sem_pacotes.log"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "execucao_sem_pacotes.json"
+    },
+    {
+      "documento": "evidencias/VALIDACAO_LOCAL.md",
+      "destino": "integridade_final.json"
+    }
+  ],
+  "modulos_testes": [
+    "tests/test_dominio.py",
+    "tests/test_execucao.py",
+    "tests/test_interface_visual.py"
+  ],
+  "metodos_testes_encontrados": 28,
+  "classes_documentadas": [
+    "Andar",
+    "ControladorMovimento",
+    "ControlePassageiros",
+    "Elevador",
+    "FilaAtendimento",
+    "FilaFIFO",
+    "GerenciadorPassageiros",
+    "InterfaceElevador",
+    "MovimentoCabine",
+    "Painel",
+    "Pessoa",
+    "Predio"
+  ],
+  "exemplo_guia": {
+    "comando": [
+      "/data/data/com.termux/files/usr/bin/python",
+      "-B",
+      "-S",
+      "-c",
+      "<primeiro bloco python do guia>"
+    ],
+    "retorno": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "artefatos_indesejados": [],
+  "pastas_vazias": [],
+  "hashes_sha256_arquivos": {
+    ".gitignore": "6ac0b737c45307bfdd8c691407eda872792d567b15b071b9b50f3a54edf80882",
+    "Guia_Elevador_POO_SOLID.md": "effba97913d21fec38e5c6fc195484d7f9946ae05eaec2881cf117b34f871e33",
+    "README.md": "73a9350861e2daec4e00e2705399b1605b93d966cc1ddb903930799efa1aa0ea",
+    "Validacao_Final_Elevador_SOLID.md": "d5a8fd75e2254e1b7d8679984271c21bbfe49c929bdedb943b1240754a6efd49",
+    "elevador_completo.py": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+    "evidencias/VALIDACAO_LOCAL.md": "76df1e142bb78eefc84a4ba7423807df3b5017fd752cab930f18d5785a4137a1",
+    "evidencias/ambiente_inicial.json": "0a9b8e12b4aac0653eb0ce7365e56b696b1dc24a2f04e22b73574ab818778ac0",
+    "evidencias/execucao_sem_pacotes.json": "aa9a0caca78b6582e09422bf6d974819363badaded32d0536593b2dddd2cdf10",
+    "evidencias/execucao_testes.json": "8cab4acdca3eefa38f258fdcfd711fdd660a1153e7cc762528cf542396a03ecd",
+    "evidencias/testes_sem_pacotes.log": "3101e8dec96199ab417a63c69f36a764b999789fc1df1420ab88636d209c95ed",
+    "evidencias/testes_termux.log": "839a559019b74ec1b2f2b7540e75fb565c855afe429bdfd102c4960d426b2d2d",
+    "requirements.txt": "f925b10048cffc6167a9c303e09766bea7650fa17840c1fb26d26546deee76c0",
+    "tests/test_dominio.py": "0e68c6fef9c7f553a117c6e747c97acdab654b3b964f847ac7837136b657d673",
+    "tests/test_execucao.py": "64c4d25940cc524d28ff51d89ef085e0830b10edcd3cca25649e718ff98840bd",
+    "tests/test_interface_visual.py": "4e69c9e6a3978341c79f210132f22d84e6924958a53596b226f3b6b125c8570a"
+  },
+  "nota_manifesto": "Exclui o próprio integridade_final.json. Evidências locais são registros da execução atual, não artefatos históricos.",
+  "observacao_conferencia": "Uma tentativa anterior interrompeu a checagem de links porque este arquivo de integridade ainda seria criado. A ordem de conferência foi corrigida; não foi uma falha do programa ou da suíte."
+}

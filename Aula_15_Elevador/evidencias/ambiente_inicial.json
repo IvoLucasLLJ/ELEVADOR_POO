@@ -1,0 +1,50 @@
+{
+  "data": "2026-11-12T23:06:44.751164-03:00",
+  "pasta": "/storage/emulated/0/Documents/POO/Aula_15_Elevador",
+  "python": "3.13.13 (main, Apr 10 2026, 13:09:22) [Clang 21.0.0 (https://android.googlesource.com/toolchain/llvm-project 5e96669f0",
+  "executavel": "/data/data/com.termux/files/usr/bin/python",
+  "plataforma": "Android-16-aarch64-64bit-ELF",
+  "maquina": "aarch64",
+  "sha256_inicial": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+  "sha256_relatorio_original": "3c76a95e8bdba406ec5b9ff7bc895c1752a05cb9158c63c4eb29850833df87c7",
+  "tamanho_programa_bytes": 48664,
+  "pacotes": {
+    "textual": "8.2.8",
+    "rich": "15.0.0",
+    "pip": "26.1.2"
+  },
+  "agentes_aplicaveis": [],
+  "arquivos_disponiveis_no_inicio": [
+    "elevador_completo.py",
+    "Validacao_Final_Elevador_SOLID.md"
+  ],
+  "git_pasta": {
+    "comando": [
+      "git",
+      "rev-parse",
+      "--show-toplevel"
+    ],
+    "retorno": 128,
+    "stdout": "",
+    "stderr": "fatal: not a git repository (or any parent up to mount point /storage)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"
+  },
+  "git_status": {
+    "comando": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "retorno": 128,
+    "stdout": "",
+    "stderr": "fatal: not a git repository (or any parent up to mount point /storage)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"
+  },
+  "git_versao": {
+    "comando": [
+      "git",
+      "--version"
+    ],
+    "retorno": 0,
+    "stdout": "git version 2.54.0\n",
+    "stderr": ""
+  }
+}

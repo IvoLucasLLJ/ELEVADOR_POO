@@ -1,0 +1,2 @@
+# Dependência somente da interface visual. --texto usa a biblioteca padrão POSIX.
+textual==8.2.8

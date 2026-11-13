@@ -1,0 +1,33 @@
+test_antes_do_inicio_e_pulso_sem_movimento (test_dominio.TestDominio.test_antes_do_inicio_e_pulso_sem_movimento) ... ok
+test_chamada_externa_rejeitada_sem_mutacao_e_normalizacao (test_dominio.TestDominio.test_chamada_externa_rejeitada_sem_mutacao_e_normalizacao) ... ok
+test_composicao_e_limites_dos_andares (test_dominio.TestDominio.test_composicao_e_limites_dos_andares) ... ok
+test_conclusao_somente_ao_fechar_e_uma_vez (test_dominio.TestDominio.test_conclusao_somente_ao_fechar_e_uma_vez) ... ok
+test_configuracao_de_tempo_e_pausa_antes_do_inicio (test_dominio.TestDominio.test_configuracao_de_tempo_e_pausa_antes_do_inicio) ... ok
+test_consultas_nao_expoem_colecoes_ou_registros_internos (test_dominio.TestDominio.test_consultas_nao_expoem_colecoes_ou_registros_internos) ... ok
+test_destino_compartilhado_e_duplicacao_interna (test_dominio.TestDominio.test_destino_compartilhado_e_duplicacao_interna) ... ok
+test_destinos_individuais_selecao_e_desembarque (test_dominio.TestDominio.test_destinos_individuais_selecao_e_desembarque) ... ok
+test_destinos_invalidos_e_efeito_de_selecao_documentado (test_dominio.TestDominio.test_destinos_invalidos_e_efeito_de_selecao_documentado) ... ok
+test_duplicacao_pendente_ativa_e_nova_chamada_apos_conclusao (test_dominio.TestDominio.test_duplicacao_pendente_ativa_e_nova_chamada_apos_conclusao) ... ok
+test_embarque_preserva_identidade_e_localizacao_unica (test_dominio.TestDominio.test_embarque_preserva_identidade_e_localizacao_unica) ... ok
+test_fechamento_bloqueado_se_uma_pessoa_nao_tem_destino (test_dominio.TestDominio.test_fechamento_bloqueado_se_uma_pessoa_nao_tem_destino) ... ok
+test_fifo_global_inclui_chamada_durante_movimento (test_dominio.TestDominio.test_fifo_global_inclui_chamada_durante_movimento) ... ok
+test_movimento_subida_descida_e_portas_na_chegada (test_dominio.TestDominio.test_movimento_subida_descida_e_portas_na_chegada) ... ok
+test_multiplos_destinos_preservam_pessoa_na_parada_intermediaria (test_dominio.TestDominio.test_multiplos_destinos_preservam_pessoa_na_parada_intermediaria) ... ok
+test_pausa_bloqueia_motor_e_aceita_novas_chamadas (test_dominio.TestDominio.test_pausa_bloqueia_motor_e_aceita_novas_chamadas) ... ok
+test_pausa_preserva_tempo_restante_das_portas (test_dominio.TestDominio.test_pausa_preserva_tempo_restante_das_portas) ... ok
+test_portas_abertas_impedem_movimento (test_dominio.TestDominio.test_portas_abertas_impedem_movimento) ... ok
+test_sentidos_opostos_no_mesmo_andar_sao_chamadas_distintas (test_dominio.TestDominio.test_sentidos_opostos_no_mesmo_andar_sao_chamadas_distintas) ... ok
+test_ajuda_apresenta_argumentos_reais (test_execucao.TestExecucao.test_ajuda_apresenta_argumentos_reais) ... ok
+test_cli_rejeita_tempos_invalidos (test_execucao.TestExecucao.test_cli_rejeita_tempos_invalidos) ... ok
+test_importacao_isolada_silenciosa_sem_iniciar_aplicacao (test_execucao.TestExecucao.test_importacao_isolada_silenciosa_sem_iniciar_aplicacao) ... ok
+test_sintaxe_compila_e_aceita_gramatica_python_310 (test_execucao.TestExecucao.test_sintaxe_compila_e_aceita_gramatica_python_310) ... ok
+test_texto_rejeita_entradas_e_continua_ate_sair (test_execucao.TestExecucao.test_texto_rejeita_entradas_e_continua_ate_sair) ... ok
+test_texto_sem_pacotes_processa_varias_linhas_e_eof (test_execucao.TestExecucao.test_texto_sem_pacotes_processa_varias_linhas_e_eof) ... ok
+test_viagem_textual_real_com_embarque_e_desembarque (test_execucao.TestExecucao.test_viagem_textual_real_com_embarque_e_desembarque) ... ok
+test_visual_sem_textual_informa_dependencia_e_alternativa (test_execucao.TestExecucao.test_visual_sem_textual_informa_dependencia_e_alternativa) ... ok
+test_montagem_controles_e_atalhos_em_duas_dimensoes (test_interface_visual.TestInterfaceVisual.test_montagem_controles_e_atalhos_em_duas_dimensoes) ... skipped 'Textual indisponível neste processo (ausente ou site-packages desabilitado).'
+
+----------------------------------------------------------------------
+Ran 28 tests in 3.732s
+
+OK (skipped=1)

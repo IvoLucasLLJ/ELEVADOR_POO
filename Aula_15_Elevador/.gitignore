@@ -1,0 +1,12 @@
+# Artefatos locais; documentação, testes e evidências permanecem versionáveis.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.tmp
+*.swp
+*~

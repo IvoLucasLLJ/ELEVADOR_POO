@@ -1,0 +1,31 @@
+{
+  "inicio": "2026-11-12T23:19:48.705970-03:00",
+  "repositorio": "/storage/emulated/0/Documents/POO/Aula_12_Elevador",
+  "destino": "/storage/emulated/0/Documents/POO/Aula_12_Elevador/Aula_15_Elevador",
+  "python_completo": "3.13.13 (main, Apr 10 2026, 13:09:22) [Clang 21.0.0 (https://android.googlesource.com/toolchain/llvm-project 5e96669f0",
+  "textual": "8.2.8",
+  "execucoes": [
+    {
+      "modo": "normal",
+      "comando_na_raiz": "(cd Aula_15_Elevador && python -B -m unittest discover -s tests -v)",
+      "diretorio_inicial": "/storage/emulated/0/Documents/POO/Aula_12_Elevador",
+      "inicio": "2026-11-12T23:19:48.740413-03:00",
+      "fim": "2026-11-12T23:19:54.847476-03:00",
+      "retorno": 0,
+      "duracao_segundos": 6.107,
+      "saida": "integracao_testes_normal.log"
+    },
+    {
+      "modo": "sem_pacotes",
+      "comando_na_raiz": "(cd Aula_15_Elevador && python -B -S -m unittest discover -s tests -v)",
+      "diretorio_inicial": "/storage/emulated/0/Documents/POO/Aula_12_Elevador",
+      "inicio": "2026-11-12T23:19:54.847589-03:00",
+      "fim": "2026-11-12T23:19:58.650368-03:00",
+      "retorno": 0,
+      "duracao_segundos": 3.803,
+      "saida": "integracao_testes_sem_pacotes.log"
+    }
+  ],
+  "pacotes_instalados_ou_atualizados": false,
+  "fim": "2026-11-12T23:19:58.650674-03:00"
+}

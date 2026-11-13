@@ -1,0 +1,21 @@
+{
+  "inicio": "2026-11-12T23:11:09.753356-03:00",
+  "fim": "2026-11-12T23:11:13.670712-03:00",
+  "diretorio": "/storage/emulated/0/Documents/POO/Aula_15_Elevador",
+  "comando": [
+    "/data/data/com.termux/files/usr/bin/python",
+    "-B",
+    "-S",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "comando_documentado": "python -B -S -m unittest discover -s tests -v",
+  "retorno": 0,
+  "duracao_segundos": 3.917,
+  "saida": "testes_sem_pacotes.log",
+  "escopo": "Mesma suíte com -S; não são testes distintos adicionais. Reexecução após esclarecer mensagem de skip, sem alterar asserções."
+}

@@ -1,16 +1,52 @@
 # ELEVADOR_POO — UniSenac
 
-Projeto acadêmico de Programação Orientada a Objetos em Python, desenvolvido no Termux/Android. O repositório documenta a evolução do simulador em três etapas, mantendo as implementações anteriores para consulta e comparação:
+Projeto acadêmico de Programação Orientada a Objetos em Python, desenvolvido no Termux/Android. O repositório documenta a evolução do simulador em quatro etapas, mantendo as implementações anteriores para consulta e comparação:
 
 1. **Aula 12 — algoritmo original de movimentação:** classe `Elevador` e simulador textual na raiz, com atendimento por proximidade e direção. Os dois arquivos-fonte e os dez testes originais foram preservados.
 2. **Aula 13 — evolução modular:** pacote [Aula_13_Predio](Aula_13_Predio/), com prédio, pessoas, painéis externo e interno, portas e fila global FIFO para um elevador e onze pavimentos, de `0` a `10`.
-3. **Aula 14 — versão completa em arquivo único:** aplicação independente dos módulos anteriores, preparada para a entrega parcial e **publicada em 12/11/2026**. É a **versão atual** do projeto, disponível em [Aula_14_Elevador no GitHub](https://github.com/IvoLucasLLJ/ELEVADOR_POO/tree/main/Aula_14_Elevador).
+3. **Aula 14 — versão completa em arquivo único:** aplicação independente dos módulos anteriores, preparada para a entrega parcial e **publicada em 12/11/2026**. A entrega publicada permanece disponível em [Aula_14_Elevador no GitHub](https://github.com/IvoLucasLLJ/ELEVADOR_POO/tree/main/Aula_14_Elevador).
+
+4. **Aula 15 — refatoração SOLID em arquivo único:** **versão atual**, com fila, movimento e passageiros separados por responsabilidade, documentação, testes e evidências em [Aula_15_Elevador/README.md](Aula_15_Elevador/README.md).
 
 ## Navegação
 
-- [Aula 14: versão atual, execução e validação](#aula-14-versão-atual-e-entrega-parcial)
+- [Aula 15: versão atual, execução e testes](#aula-15-versão-atual)
+- [Aula 14: entrega parcial publicada, execução e validação](#aula-14-versão-atual-e-entrega-parcial)
 - [Aula 13: execução, regras, arquitetura e testes](#aula-13-evolução-modular)
 - [Aula 12: algoritmo e simulador originais](#aula-12-algoritmo-original-de-movimentação)
+
+## Aula 15: versão atual
+
+A Aula 15 evolui a Aula 14 com **refatoração SOLID em um único arquivo Python**, mantendo toda a implementação em `Aula_15_Elevador/elevador_completo.py`. `Elevador` coordena os colaboradores de fila, movimento e passageiros por contratos, preservando uma cabine, onze pavimentos, FIFO e as interfaces visual e textual. O programa foi copiado sem alteração de bytes.
+
+A entrega inclui [README da Aula 15](Aula_15_Elevador/README.md), [guia didático](Aula_15_Elevador/Guia_Elevador_POO_SOLID.md), testes e evidências. É a **versão atual** do projeto. As aulas anteriores e seus links são preservados abaixo.
+
+### Execução da Aula 15 a partir da raiz
+
+Requer Python 3.10 ou superior. A interface visual usa **Textual 8.2.8**, já encontrado no ambiente validado; nenhum pacote foi instalado ou atualizado nesta integração.
+
+```sh
+python Aula_15_Elevador/elevador_completo.py
+python Aula_15_Elevador/elevador_completo.py --texto
+python Aula_15_Elevador/elevador_completo.py --texto --tempo-portas 1.5
+```
+
+O modo textual usa somente biblioteca padrão e recursos POSIX/Termux. As orientações para preparar um ambiente visual novo estão no README da Aula 15.
+
+### Testes e evidências da Aula 15
+
+Os testes da Aula 15 importam seu próprio arquivo de produção. Para executá-los a partir da raiz do repositório, entre na subpasta no mesmo comando, evitando importar o `elevador_completo.py` preexistente na raiz:
+
+```sh
+(cd Aula_15_Elevador && python -B -m unittest discover -s tests -v)
+(cd Aula_15_Elevador && python -B -S -m unittest discover -s tests -v)
+```
+
+No Termux/Android aarch64, com **Python 3.13.13 e Textual 8.2.8**, os resultados locais são **28 testes aprovados**; com `-S`, são **27 aprovados e 1 teste visual omitido**, pois site-packages não é carregado. O teste visual utiliza o modo headless do Textual em 120×35 e 44×32; não é inspeção física de toque ou tela.
+
+Essa suíte foi produzida para a preparação acadêmica atual. Os **103 testes e as 5.137 operações** do relatório SOLID são resultados históricos de Linux/Python 3.12.14, sem nova execução ou comparação com a Aula 14 nesta integração. Os conjuntos não devem ser somados.
+
+Consulte as [evidências da preparação](Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md) e o [registro da integração e dos testes no destino](Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md). A descoberta geral de `tests/` na raiz continua pertencendo às suítes ali existentes; use os comandos acima para a Aula 15.
 
 ## Aula 14: versão atual e entrega parcial
 
@@ -26,7 +62,7 @@ A publicação foi realizada no commit [838c271 — Adiciona entrega parcial do 
 
 ### Execução da Aula 14
 
-Requer **Python 3.10 ou superior**. No Termux, caso o Python ainda não esteja instalado, execute `pkg install python`. Entre na pasta da versão atual:
+Requer **Python 3.10 ou superior**. No Termux, caso o Python ainda não esteja instalado, execute `pkg install python`. Entre na pasta da versão da Aula 14:
 
 ```sh
 cd /storage/emulated/0/Documents/POO/Aula_12_Elevador/Aula_14_Elevador

@@ -1,0 +1,263 @@
+{
+  "data": "2026-11-12T23:21:01.154802-03:00",
+  "origem": "/storage/emulated/0/Documents/POO/Aula_15_Elevador",
+  "repositorio": "/storage/emulated/0/Documents/POO/Aula_12_Elevador",
+  "destino": "/storage/emulated/0/Documents/POO/Aula_12_Elevador/Aula_15_Elevador",
+  "branch": "main",
+  "remoto": "https://github.com/IvoLucasLLJ/ELEVADOR_POO.git",
+  "sha256_programa_origem": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+  "sha256_programa_destino": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+  "origem_16_arquivos_preservada": true,
+  "preexistentes_preservados_exceto_readme_autorizado": true,
+  "arquivos_copiados_identicos_exceto_readme_ajustado": [
+    "elevador_completo.py",
+    "Validacao_Final_Elevador_SOLID.md",
+    ".gitignore",
+    "requirements.txt",
+    "Guia_Elevador_POO_SOLID.md",
+    "tests/test_dominio.py",
+    "tests/test_execucao.py",
+    "tests/test_interface_visual.py",
+    "evidencias/ambiente_inicial.json",
+    "evidencias/testes_termux.log",
+    "evidencias/execucao_testes.json",
+    "evidencias/testes_sem_pacotes.log",
+    "evidencias/execucao_sem_pacotes.json",
+    "evidencias/VALIDACAO_LOCAL.md",
+    "evidencias/integridade_final.json"
+  ],
+  "sha256_readme_principal_antes": "663859c97894d538d86d91913df682f4e75aebae295c4cb696a259d0f1dffd2a",
+  "sha256_readme_principal_depois": "d33fd884a747267b04c54974bc8bed2ee71756b9970cc346373162576a608a7c",
+  "arquivos_origem_sha256": {
+    "elevador_completo.py": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+    "Validacao_Final_Elevador_SOLID.md": "d5a8fd75e2254e1b7d8679984271c21bbfe49c929bdedb943b1240754a6efd49",
+    ".gitignore": "6ac0b737c45307bfdd8c691407eda872792d567b15b071b9b50f3a54edf80882",
+    "requirements.txt": "f925b10048cffc6167a9c303e09766bea7650fa17840c1fb26d26546deee76c0",
+    "README.md": "73a9350861e2daec4e00e2705399b1605b93d966cc1ddb903930799efa1aa0ea",
+    "Guia_Elevador_POO_SOLID.md": "effba97913d21fec38e5c6fc195484d7f9946ae05eaec2881cf117b34f871e33",
+    "tests/test_dominio.py": "0e68c6fef9c7f553a117c6e747c97acdab654b3b964f847ac7837136b657d673",
+    "tests/test_execucao.py": "64c4d25940cc524d28ff51d89ef085e0830b10edcd3cca25649e718ff98840bd",
+    "tests/test_interface_visual.py": "4e69c9e6a3978341c79f210132f22d84e6924958a53596b226f3b6b125c8570a",
+    "evidencias/ambiente_inicial.json": "0a9b8e12b4aac0653eb0ce7365e56b696b1dc24a2f04e22b73574ab818778ac0",
+    "evidencias/testes_termux.log": "839a559019b74ec1b2f2b7540e75fb565c855afe429bdfd102c4960d426b2d2d",
+    "evidencias/execucao_testes.json": "8cab4acdca3eefa38f258fdcfd711fdd660a1153e7cc762528cf542396a03ecd",
+    "evidencias/testes_sem_pacotes.log": "3101e8dec96199ab417a63c69f36a764b999789fc1df1420ab88636d209c95ed",
+    "evidencias/execucao_sem_pacotes.json": "aa9a0caca78b6582e09422bf6d974819363badaded32d0536593b2dddd2cdf10",
+    "evidencias/VALIDACAO_LOCAL.md": "76df1e142bb78eefc84a4ba7423807df3b5017fd752cab930f18d5785a4137a1",
+    "evidencias/integridade_final.json": "f4c57dab5adc2b3f8ebb3984eedb901f25bb1c86b189c945f029ca3884b435f9"
+  },
+  "links_antigos_readme_preservados": true,
+  "links_locais_e_ancoras_conferidos": [
+    {
+      "documento": "README.md",
+      "destino": "Aula_13_Predio/"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_15_Elevador/README.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "#aula-15-versão-mais-recente-preparada"
+    },
+    {
+      "documento": "README.md",
+      "destino": "#aula-14-versão-atual-e-entrega-parcial"
+    },
+    {
+      "documento": "README.md",
+      "destino": "#aula-13-evolução-modular"
+    },
+    {
+      "documento": "README.md",
+      "destino": "#aula-12-algoritmo-original-de-movimentação"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_15_Elevador/README.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_15_Elevador/Guia_Elevador_POO_SOLID.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_14_Elevador/00_LEIA_PRIMEIRO.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_14_Elevador/elevador_completo.py"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_14_Elevador/requirements.txt"
+    },
+    {
+      "documento": "README.md",
+      "destino": "Aula_14_Elevador/00_LEIA_PRIMEIRO.md"
+    },
+    {
+      "documento": "README.md",
+      "destino": "RELATORIO_QUALIDADE.md"
+    },
+    {
+      "documento": "Aula_15_Elevador/README.md",
+      "destino": "Guia_Elevador_POO_SOLID.md"
+    },
+    {
+      "documento": "Aula_15_Elevador/README.md",
+      "destino": "evidencias/VALIDACAO_LOCAL.md"
+    },
+    {
+      "documento": "Aula_15_Elevador/README.md",
+      "destino": "evidencias/INTEGRACAO_GIT.md"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "ambiente_inicial.json"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "testes_termux.log"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "execucao_testes.json"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "testes_sem_pacotes.log"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "execucao_sem_pacotes.json"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/VALIDACAO_LOCAL.md",
+      "destino": "integridade_final.json"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md",
+      "destino": "integracao_testes_normal.log"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md",
+      "destino": "integracao_testes_sem_pacotes.log"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md",
+      "destino": "execucao_integracao.json"
+    },
+    {
+      "documento": "Aula_15_Elevador/evidencias/INTEGRACAO_GIT.md",
+      "destino": "integridade_integracao.json"
+    }
+  ],
+  "verificacao_ignore": [
+    {
+      "caminho": "Aula_15_Elevador/__pycache__/exemplo.pyc",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/.venv/bin/python",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/venv/bin/python",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/env/bin/python",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/.pytest_cache/dado",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/rascunho.tmp",
+      "ignorado": true,
+      "esperado": true
+    },
+    {
+      "caminho": "Aula_15_Elevador/README.md",
+      "ignorado": false,
+      "esperado": false
+    },
+    {
+      "caminho": "Aula_15_Elevador/requirements.txt",
+      "ignorado": false,
+      "esperado": false
+    },
+    {
+      "caminho": "Aula_15_Elevador/elevador_completo.py",
+      "ignorado": false,
+      "esperado": false
+    },
+    {
+      "caminho": "Aula_15_Elevador/tests/test_dominio.py",
+      "ignorado": false,
+      "esperado": false
+    },
+    {
+      "caminho": "Aula_15_Elevador/evidencias/testes_termux.log",
+      "ignorado": false,
+      "esperado": false
+    },
+    {
+      "caminho": "Aula_15_Elevador/evidencias/integridade_final.json",
+      "ignorado": false,
+      "esperado": false
+    }
+  ],
+  "artefatos_excluidos_encontrados": [],
+  "git_diff_check": {
+    "comando": "git diff --check",
+    "retorno": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "git_status_antes": "?? RELATORIO_ARQUIVO_UNICO.md\n?? elevador_completo.py\n?? evidencias/analise_estatica.json\n?? evidencias/arquivo_unico/inicializacao_visual_terminal.ansi\n?? evidencias/arquivo_unico/integridade_originais.json\n?? evidencias/arquivo_unico/layout_100x24.svg\n?? evidencias/arquivo_unico/layout_120x35.svg\n?? evidencias/arquivo_unico/layout_120x50.svg\n?? evidencias/arquivo_unico/layout_32x20.svg\n?? evidencias/arquivo_unico/layout_44x32.svg\n?? evidencias/arquivo_unico/layout_60x24.svg\n?? evidencias/arquivo_unico/layout_84x28.svg\n?? evidencias/arquivo_unico/layout_85x28.svg\n?? evidencias/arquivo_unico/layout_medidas.json\n?? evidencias/arquivo_unico/testes_versao_unica.log\n?? evidencias/arquivo_unico/viagem_texto_independente.log\n?? evidencias/arquivo_unico/viagem_textual_eventos.log\n?? evidencias/auditoria.json\n?? evidencias/cobertura/Aula_13_Predio.andar.cover\n?? evidencias/cobertura/Aula_13_Predio.elevador.cover\n?? evidencias/cobertura/Aula_13_Predio.painel.cover\n?? evidencias/cobertura/Aula_13_Predio.pessoa.cover\n?? evidencias/cobertura/Aula_13_Predio.predio.cover\n?? evidencias/cobertura/elevador.cover\n?? evidencias/cobertura_resumo.txt\n?? evidencias/correcao_passageiros.json\n?? evidencias/correcao_passageiros_auditoria.log\n?? evidencias/correcao_passageiros_testes.log\n?? evidencias/dependencias_ambiente.log\n?? evidencias/dependencias_projeto.log\n?? evidencias/execucao_auditoria.log\n?? evidencias/inicio_termux_pty.json\n?? evidencias/inicio_termux_pty.log\n?? evidencias/layout_100x24.svg\n?? evidencias/layout_120x35.svg\n?? evidencias/layout_120x50.svg\n?? evidencias/layout_32x20.svg\n?? evidencias/layout_44x32.svg\n?? evidencias/layout_60x24.svg\n?? evidencias/layout_84x28.svg\n?? evidencias/layout_85x28.svg\n?? evidencias/layout_medidas.json\n?? evidencias/novos_funcionais.log\n?? evidencias/novos_texto.log\n?? evidencias/regressao_apos_correcao.log\n?? evidencias/selecao_layout.json\n?? evidencias/selecao_pessoa2_120x35.svg\n?? evidencias/suite_cobertura_dominio.log\n?? evidencias/suite_completa.log\n?? evidencias/tentativa_trace_integral_diagnostico.log\n?? evidencias/tentativa_trace_integral_parcial.log\n?? evidencias/viagem_alternativa_texto.log\n?? evidencias/viagem_textual_eventos.log\n?? tests/test_elevador_completo.py\n",
+  "git_status_depois": " M README.md\n?? Aula_15_Elevador/\n?? RELATORIO_ARQUIVO_UNICO.md\n?? elevador_completo.py\n?? evidencias/\n?? tests/test_elevador_completo.py\n",
+  "escopo": [
+    "README.md",
+    "Aula_15_Elevador/"
+  ],
+  "area_preparacao_alterada": false,
+  "commit_ou_push": false,
+  "hashes_atuais_copia_sem_proprio_manifesto": {
+    ".gitignore": "6ac0b737c45307bfdd8c691407eda872792d567b15b071b9b50f3a54edf80882",
+    "Guia_Elevador_POO_SOLID.md": "effba97913d21fec38e5c6fc195484d7f9946ae05eaec2881cf117b34f871e33",
+    "README.md": "633a5097e6bbd95f4694bba6eaf7b465e9372d0afd4fab4853b9e6ebe75f971f",
+    "Validacao_Final_Elevador_SOLID.md": "d5a8fd75e2254e1b7d8679984271c21bbfe49c929bdedb943b1240754a6efd49",
+    "elevador_completo.py": "ed32ed76d2d4c5be1c2fea132bc8d5dd3b7a73c9f91f4231cf41d2b17f42de1f",
+    "evidencias/INTEGRACAO_GIT.md": "1e64ebb786f71834eb0bdeea04e862a758121d682d8fe228b6f39130e53b0795",
+    "evidencias/VALIDACAO_LOCAL.md": "76df1e142bb78eefc84a4ba7423807df3b5017fd752cab930f18d5785a4137a1",
+    "evidencias/ambiente_inicial.json": "0a9b8e12b4aac0653eb0ce7365e56b696b1dc24a2f04e22b73574ab818778ac0",
+    "evidencias/execucao_integracao.json": "0f6f2cde9e1f7043221dc44111b46e5fb7db81be5fc8cb8ed4c8ceb148eff652",
+    "evidencias/execucao_sem_pacotes.json": "aa9a0caca78b6582e09422bf6d974819363badaded32d0536593b2dddd2cdf10",
+    "evidencias/execucao_testes.json": "8cab4acdca3eefa38f258fdcfd711fdd660a1153e7cc762528cf542396a03ecd",
+    "evidencias/integracao_testes_normal.log": "afcdc389c7ca9cdcc70a2743a483a5b2b89911e587c1d2e11f6d0f13a45945f3",
+    "evidencias/integracao_testes_sem_pacotes.log": "6cbcb2e664712d1854ed693f66fbfe4195adcfc1b03e6dcb9d7ef8f882f70be5",
+    "evidencias/integridade_final.json": "f4c57dab5adc2b3f8ebb3984eedb901f25bb1c86b189c945f029ca3884b435f9",
+    "evidencias/testes_sem_pacotes.log": "3101e8dec96199ab417a63c69f36a764b999789fc1df1420ab88636d209c95ed",
+    "evidencias/testes_termux.log": "839a559019b74ec1b2f2b7540e75fb565c855afe429bdfd102c4960d426b2d2d",
+    "requirements.txt": "f925b10048cffc6167a9c303e09766bea7650fa17840c1fb26d26546deee76c0",
+    "tests/test_dominio.py": "0e68c6fef9c7f553a117c6e747c97acdab654b3b964f847ac7837136b657d673",
+    "tests/test_execucao.py": "64c4d25940cc524d28ff51d89ef085e0830b10edcd3cca25649e718ff98840bd",
+    "tests/test_interface_visual.py": "4e69c9e6a3978341c79f210132f22d84e6924958a53596b226f3b6b125c8570a"
+  }
+}
